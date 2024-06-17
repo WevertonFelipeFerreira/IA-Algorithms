@@ -121,7 +121,7 @@ class Busca_Gulosa:
         self.grafo = grafo
 
     def mostra_caminho(self):
-        if sum(self.path.items()) == 0:
+        if self.path.items() == 0:
             print("Nenhum caminho processado.")
             return
 
@@ -130,7 +130,7 @@ class Busca_Gulosa:
         for index, (key, value) in enumerate(self.path.items()):
             print(f"- {value} > {key}", end="")
 
-        print(f"Total distância: {total}")
+        print(f" Total distância: {total}")
 
     def buscar(self):
         if self.origem == "Bucharest":
@@ -154,6 +154,9 @@ class Busca_Gulosa:
                     key = find_key_by_value(self.heuristica, distancia)
                     for adjacente in vertice.adjacentes:
                         if key == adjacente.vertice.rotulo and adjacente.vertice.visitado is False:
+                            if key == "Bucharest":
+                                self.path[key] = adjacente.custo
+                                return
                             vertice = adjacente.vertice
                             self.path[key] = adjacente.custo
                             finded_vertice = True
@@ -163,14 +166,3 @@ class Busca_Gulosa:
 busca = Busca_Gulosa("arad", Grafo())
 busca.buscar()
 busca.mostra_caminho()
-
-
-
-# grafo.sibiu.adjacentes[0].custo
-# lista = []
-# lista.append(234)
-# lista.append(567)
-# lista.append(22)
-# lista.append(3)
-# lista.sort()
-# print(lista)
